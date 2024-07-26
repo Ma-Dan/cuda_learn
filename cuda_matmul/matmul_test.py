@@ -19,8 +19,12 @@ a = torch.randn((M, K), dtype=dtype).cuda()
 b = torch.randn((K, N), dtype=dtype).cuda()
 result = torch.randn((M, N), dtype=dtype).cuda()
 
-golden = a@b
+golden = a @ b
 
 cuda_learn.matmul(a, b, result)
+
+diff = result.cpu() - golden.cpu()
+print(diff.max(), diff.min())
+
 allclose = torch.allclose(result.cpu(), golden.cpu(), rtol=1e-3, atol=1e-3)
 print("cuda_learn.matmul: ", allclose)

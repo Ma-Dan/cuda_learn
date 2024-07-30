@@ -5,6 +5,7 @@ void createCublas();
 void destroyCublas();
 void matmul_cublas(float* result, float* a, float* b, int m, int n, int k);
 void matmul_naive(float* result, float* a, float* b, int M, int N, int K);
+void matmul_v1(float* result, float* a, float* b, int M, int N, int K);
 
 namespace ops {
     void matmul(const at::Tensor &a, const at::Tensor &b, const at::Tensor &result) {
@@ -21,7 +22,10 @@ namespace ops {
         destroyCublas();*/
 
         //naive
-        matmul_naive((float*)result.data_ptr(), (float*)a.data_ptr(), (float*)b.data_ptr(), m, n, k);
+        //matmul_naive((float*)result.data_ptr(), (float*)a.data_ptr(), (float*)b.data_ptr(), m, n, k);
+
+        //v1
+        matmul_v1((float*)result.data_ptr(), (float*)a.data_ptr(), (float*)b.data_ptr(), m, n, k);
     }
 } // namespace ops
 

@@ -10,9 +10,9 @@ sys.path.append(os.path.join(os.getcwd(), "out"))
 import cuda_learn
 
 
-M = 123
-N = 234
-K = 126
+M = 128
+N = 128
+K = 1024
 
 dtype = torch.float32
 a = torch.randn((M, K), dtype=dtype).cuda()
@@ -22,6 +22,9 @@ result = torch.randn((M, N), dtype=dtype).cuda()
 golden = a @ b
 
 cuda_learn.matmul(a, b, result)
+
+print(result)
+print(golden)
 
 diff = result.cpu() - golden.cpu()
 print(diff.max(), diff.min())
